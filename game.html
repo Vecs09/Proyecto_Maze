@@ -8,7 +8,7 @@
 </head>
 
 <body bgcolor="LIGHTBLUE">
-    <canvas id="myCanvas" width="900" height="1250"></canvas>
+    <canvas id="myCanvas" width="2000" height="2000"></canvas>
     <script>
         const myCanvas = document.getElementById("myCanvas");
         const ctx = myCanvas.getContext("2d");
@@ -16,14 +16,19 @@
         const img = new Image();
         const img2 = new Image();
         const img3 = new Image();
+        const monstruo = new Image();
+        const meta = new Image();
+
 
         // Rutas de las imágenes
         img.src = "floor.png";
         img2.src = "wall.jpg";
         img3.src = "texture.png";
+        monstruo.src = "gatobrujo.png";
+        meta.src ="floor_2.png";
 
 
-        var sizeWall = 20;
+        var sizeWall = 45;
 
         var maze = [
 
@@ -65,33 +70,84 @@
             [1, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 1],
             [1, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 0, 2, 2, 2, 2, 0, 2, 2, 0, 2, 0, 0, 2, 2, 0, 0, 1],
             [1, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2, 2, 2, 1],
-            [1, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 3, 1],
+            [1, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 4, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 
         ]
 
 
-        // Dibuja el laberinto después de que ambas imágenes hayan sido cargadas
-        img2.onload = function () {
-            for (var y = 0; y < maze.length; y++) {
-                for (var x = 0; x < maze[y].length; x++) {
+        let playerX = 0;
+        let playerY = 0;
+        for (let y = 0; y < maze.length; y++) {
+            for (let x = 0; x < maze[y].length; x++) {
+                if (maze[y][x] === 3) {
+                    playerX = x;
+                    playerY = y;
+                }
+            }
+        }
+
+        function drawMaze() {
+            for (let y = 0; y < maze.length; y++) {
+                for (let x = 0; x < maze[y].length; x++) {
                     if (maze[y][x] == 1) {
                         ctx.drawImage(img3, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
                     } else if (maze[y][x] === 2) {
                         ctx.drawImage(img2, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
-                       //ctx.fillStyle = 'blue'; 
-                       //ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     } else if (maze[y][x] === 3) {
-                        //ctx.drawImage(img2, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
-                       ctx.fillStyle = 'green'; 
-                    ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
-                    }
-                    else if (maze[y][x] === 0) {
+                        ctx.drawImage(monstruo, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
+                        // ctx.fillStyle = 'green'; 
+                        // ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                    } else if (maze[y][x] === 0) {
                         ctx.drawImage(img, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Pared
+                    } else if (maze[y][x] === 4) {
+                        ctx.drawImage(meta, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
+                        //ctx.fillStyle = 'green';
+                        //ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     }
                 }
             }
+        }
+
+        img2.onload = function () {
+            drawMaze();
         };
+
+        function movePlayer(dx, dy) {
+            const newX = playerX + dx;
+            const newY = playerY + dy;
+
+            if (newY >= 0 && newY < maze.length && newX >= 0 && newX < maze[newY].length) {
+                if (maze[newY][newX] === 2) {
+
+                    maze[playerY][playerX] = 2;
+                    playerX = newX;
+                    playerY = newY;
+                    maze[playerY][playerX] = 3;
+                    drawMaze();
+                }
+            }
+            if (maze[newY][newX] === 4) {
+                alert('¡Has ganado!');
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'w' || e.key === 'ArrowUp') {
+                movePlayer(0, -1);
+            } else if (e.key === 's' || e.key === 'ArrowDown') {
+                movePlayer(0, 1);
+            } else if (e.key === 'a' || e.key === 'ArrowLeft') {
+                movePlayer(-1, 0);
+            } else if (e.key === 'd' || e.key === 'ArrowRight') {
+                movePlayer(1, 0);
+            }
+        });
+    </script>
+
+
+
+
     </script>
 </body>
 
