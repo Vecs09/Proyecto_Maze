@@ -22,6 +22,40 @@
         const portal2 = new Image();
         const portal3 = new Image();
 
+        const audio = new Audio("soundtrack.mp3");
+        audio.loop = true;
+        audio.volume = 0.1;
+
+        const portalSound = new Audio("portalSoundtrack.mp3"); // Reemplaza con la ruta a tu archivo de sonido
+        portalSound.volume = 0.3;
+
+        const portalCorrect = new Audio("PortalCorrect.mp3"); // Reemplaza con la ruta a tu archivo de sonido
+        portalCorrect.volume = 0.3;
+
+
+        function playBackgroundMusic() {
+            audio.play().catch(error => {
+                console.error("Error al reproducir la música:", error);
+            });
+        }
+
+        function stopBackgroundMusic() {
+            audio.pause();
+            audio.currentTime = 0; // Opcional: reinicia el tiempo de reproducción
+        }
+
+        function playPortalSound() {
+            portalSound.play().catch(error => {
+                console.error("Error al reproducir el sonido del portal:", error);
+            });
+        }
+
+        function playPortalCorrect() {
+            portalCorrect.play().catch(error => {
+                console.error("Error al reproducir el sonido del portal:", error);
+            });
+        }
+
         img.src = "floor.png";
         img2.src = "wall.jpg";
         img3.src = "texture.png";
@@ -129,11 +163,13 @@
             }, 180000);
         }
 
+
         function checkIfWon() {
             if (maze[playerY][playerX] === 4) {
                 hasWon = true;
                 clearTimeout(timer);
                 alert("¡Ganaste, llegaste al Sombrero Mortifero de Rabadon!");
+                stopBackgroundMusic();
             }
         }
 
@@ -185,6 +221,7 @@
                 ctx.font = "50px Georgia";
                 ctx.fillStyle = "black";
                 ctx.fillText("P E R D I S T E", 700, 700);
+                stopBackgroundMusic();
             } else if (timerStarted) {
                 ctx.font = "50px Georgia";
                 ctx.fillStyle = "black";
@@ -205,6 +242,8 @@
             ctx.fillText("p - Pausa", 1860, 560);
             ctx.fillText("Cuentas con 180Seg para ", 1860, 630);
             ctx.fillText("poder encontrar el portal", 1860, 700);
+            ctx.fillText("Dale P rapido para escuchar" , 1860, 800);
+            ctx.fillText("el soundtrack", 1860, 870);
         }
 
 
@@ -242,12 +281,15 @@
                 ctx.font = "50px Georgia";
                 ctx.fillStyle = "black";
                 ctx.fillText("G A N A S T E", 700, 700);
+                stopBackgroundMusic();
             }
             if (maze[newY][newX] === 5 || maze[newY][newX] === 6) {
                 teleportPlayer();
+                playPortalSound();
             }
             if (maze[newY][newX] === 7) {
                 teleportWin();
+                playPortalCorrect();
             }
         }
 
@@ -275,6 +317,11 @@
 
         function togglePause() {
             isPaused = !isPaused;
+            if (isPaused) {
+                stopBackgroundMusic();
+            } else {
+                playBackgroundMusic();
+            }
             drawMaze();
         }
 
@@ -282,13 +329,13 @@
             if (e.key === 'p') {
                 togglePause();
             } else if (!isPaused && !isGameOver) {
-                if (e.key === 'w' ||e.key === 'W' || e.key === 'ArrowUp') {
+                if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') {
                     movePlayer(0, -1);
-                } else if (e.key === 's' ||e.key === 'S' || e.key === 'ArrowDown') {
+                } else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') {
                     movePlayer(0, 1);
-                } else if (e.key === 'a' ||e.key === 'A' || e.key === 'ArrowLeft') {
+                } else if (e.key === 'a' || e.key === 'A' || e.key === 'ArrowLeft') {
                     movePlayer(-1, 0);
-                } else if (e.key === 'd' ||e.key === 'D' || e.key === 'ArrowRight') {
+                } else if (e.key === 'd' || e.key === 'D' || e.key === 'ArrowRight') {
                     movePlayer(1, 0);
                 }
             }
