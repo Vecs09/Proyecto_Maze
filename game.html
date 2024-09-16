@@ -8,7 +8,7 @@
 </head>
 
 <body bgcolor="LIGHTBLUE">
-    <canvas id="myCanvas" width="2000" height="2000"></canvas>
+    <canvas id="myCanvas" width="2500" height="2500"></canvas>
     <script>
         const myCanvas = document.getElementById("myCanvas");
         const ctx = myCanvas.getContext("2d");
@@ -19,15 +19,19 @@
         const monstruo = new Image();
         const meta = new Image();
         const portal = new Image();
+        const portal2 = new Image();
+        const portal3 = new Image();
 
-
-        // Rutas de las imágenes
         img.src = "floor.png";
         img2.src = "wall.jpg";
         img3.src = "texture.png";
         monstruo.src = "gatobrujo.png";
         meta.src = "floor_2.png";
         portal.src = "portal.png";
+        portal2.src = "portal2.png";
+        portal3.src = "portal2.png";
+
+
 
 
         var sizeWall = 45;
@@ -39,7 +43,7 @@
             [1, 0, 0, 2, 0, 0, 2, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 1],
             [1, 2, 2, 2, 0, 2, 2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 1],
             [1, 0, 2, 0, 0, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 2, 2, 0, 1],
-            [1, 5, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 0, 2, 5, 0, 2, 0, 0, 2, 0, 0, 1],
+            [1, 5, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 0, 2, 6, 0, 2, 0, 0, 2, 0, 0, 1],
             [1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 0, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 2, 2, 2, 1],
             [1, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 1],
             [1, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 1],
@@ -50,12 +54,12 @@
             [1, 2, 0, 2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 1],
             [1, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 2, 2, 1],
             [1, 0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 0, 0, 2, 1],
-            [1, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+            [1, 6, 2, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
             [1, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
             [1, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 2, 0, 0, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 5, 1],
-            [1, 2, 0, 2, 2, 0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 1],
-            [1, 2, 0, 0, 0, 0, 2, 0, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+            [1, 2, 0, 0, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 7, 1],
+            [1, 2, 0, 2, 2, 0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 1],
+            [1, 2, 0, 0, 0, 0, 2, 0, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 6, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1],
             [1, 2, 2, 2, 2, 2, 2, 0, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 0, 2, 2, 2, 0, 0, 2, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 1],
             [1, 0, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 1],
@@ -63,7 +67,7 @@
             [1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2, 2, 2, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 1],
             [1, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 0, 2, 2, 0, 2, 2, 2, 0, 2, 2, 0, 0, 2, 2, 0, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 1],
             [1, 5, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 1],
-            [1, 2, 2, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 1],
+            [1, 2, 2, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2, 5, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 1],
             [1, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 0, 1],
             [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 1],
             [1, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1],
@@ -71,12 +75,67 @@
             [1, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 1],
             [1, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 1],
             [1, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 0, 2, 2, 2, 2, 0, 2, 2, 0, 2, 0, 0, 2, 2, 0, 0, 1],
-            [1, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2, 2, 2, 1],
-            [1, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 5, 0, 0, 4, 1],
+            [1, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 6, 0, 5, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1],
+            [1, 2, 2, 5, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 7, 0, 2, 4, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 
         ]
 
+        let currentTime;
+        let elapsedTime;
+        let timeRemaining;
+        let secondsRemaining;
+
+        let timer;
+        let hasWon = false;
+        let timerStarted = false;
+        let isPaused = false;
+        let isGameOver = false;
+        let startTime;
+        let timerInterval;
+
+        function updateTimeRemaining() {
+            if (!isGameOver && timerStarted) {
+                currentTime = Date.now();
+                elapsedTime = currentTime - startTime;
+                timeRemaining = Math.max(0, 180000 - elapsedTime);
+                secondsRemaining = Math.floor(timeRemaining / 1000);
+
+                if (timeRemaining <= 0) {
+                    isGameOver = true;
+                    clearInterval(timerInterval);
+                    drawMaze();
+                    return;
+                }
+                drawMaze();
+            }
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText("Tiempo restante: " + secondsRemaining + "s", 1860, 770);
+        }
+
+        function startTimer() {
+            if (timerStarted) return;
+
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimeRemaining, 1000);
+            timerStarted = true;
+
+            timer = setTimeout(function () {
+                if (!hasWon) {
+                    isGameOver = true;
+                    drawMaze();
+                }
+            }, 180000);
+        }
+
+        function checkIfWon() {
+            if (maze[playerY][playerX] === 4) {
+                hasWon = true;
+                clearTimeout(timer);
+                alert("¡Ganaste, llegaste al Sombrero Mortifero de Rabadon!");
+            }
+        }
 
         let playerX = 0;
         let playerY = 0;
@@ -90,87 +149,155 @@
         }
 
         function drawMaze() {
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+
             for (let y = 0; y < maze.length; y++) {
                 for (let x = 0; x < maze[y].length; x++) {
                     if (maze[y][x] == 1) {
-                        ctx.drawImage(img3, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
+                        ctx.drawImage(img3, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     } else if (maze[y][x] === 2) {
-                        ctx.drawImage(img2, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
+                        ctx.drawImage(img2, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     } else if (maze[y][x] === 3) {
-                        ctx.drawImage(monstruo, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
-                        // ctx.fillStyle = 'green'; 
-                        // ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                        ctx.drawImage(monstruo, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     } else if (maze[y][x] === 0) {
-                        ctx.drawImage(img, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Pared
+                        ctx.drawImage(img, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     } else if (maze[y][x] === 4) {
-                        ctx.drawImage(meta, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
-                        //ctx.fillStyle = 'green';
-                        //ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
-                    }
-                    else if (maze[y][x] === 5) {
-                        ctx.drawImage(portal, x * sizeWall, y * sizeWall, sizeWall, sizeWall); // Piso
-                        //ctx.fillStyle = 'green';
-                        //ctx.fillRect(x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                        ctx.drawImage(meta, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                    } else if (maze[y][x] === 5) {
+                        ctx.drawImage(portal, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                    } else if (maze[y][x] === 6) {
+                        ctx.drawImage(portal2, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
+                    } else if (maze[y][x] === 7) {
+                        ctx.drawImage(portal3, x * sizeWall, y * sizeWall, sizeWall, sizeWall);
                     }
                 }
             }
+
+            if (isPaused) {
+                ctx.fillStyle = "rgba(172, 172, 172 , 0.5)";
+                ctx.fillRect(0, 0, 1755, 1800);
+                ctx.font = "50px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText("P A U S A D O", 700, 700);
+            } else if (isGameOver) {
+                ctx.fillStyle = "rgba(225, 48, 31 , 0.5)";
+                ctx.fillRect(0, 0, 1755, 1800);
+                ctx.font = "50px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText("P E R D I S T E", 700, 700);
+            } else if (timerStarted) {
+                ctx.font = "50px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText("Tiempo restante: " + secondsRemaining + "s", 1860, 800);
+            }
+
+            ctx.fillStyle = "rgba(96, 165, 173 )";
+            ctx.fillRect(1800, 20, 700, 1000);
+            ctx.font = "50px Georgia";
+            ctx.fillStyle = "black";
+            ctx.fillText("Laberinto de portales", 1900, 70);
+            ctx.fillText("2 Portales son los correctos", 1860, 140);
+            ctx.fillText("El resto te envia al inicio", 1890, 210);
+            ctx.fillText("w - Arriba", 1860, 280);
+            ctx.fillText("a - Izquierda", 1860, 350);
+            ctx.fillText("s - Abajo", 1860, 420);
+            ctx.fillText("d - Derecha", 1860, 490);
+            ctx.fillText("p - Pausa", 1860, 560);
+            ctx.fillText("Cuentas con 180Seg para ", 1860, 630);
+            ctx.fillText("poder encontrar el portal", 1860, 700);
         }
+
+
 
         img2.onload = function () {
             drawMaze();
         };
 
         function movePlayer(dx, dy) {
+            if (isPaused || isGameOver) {
+                return;
+            }
+
+            if (!timerStarted) {
+                startTimer();
+            }
+
             const newX = playerX + dx;
             const newY = playerY + dy;
 
             if (newY >= 0 && newY < maze.length && newX >= 0 && newX < maze[newY].length) {
                 if (maze[newY][newX] === 2) {
-
                     maze[playerY][playerX] = 2;
                     playerX = newX;
                     playerY = newY;
                     maze[playerY][playerX] = 3;
                     drawMaze();
+                    checkIfWon();
                 }
             }
+
             if (maze[newY][newX] === 4) {
-                alert('¡Has ganado!');
+                ctx.fillStyle = "rgba(90, 225, 31 , 0.5)";
+                ctx.fillRect(0, 0, 1755, 1800);
+                ctx.font = "50px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText("G A N A S T E", 700, 700);
             }
-            if (maze[newY][newX] === 5) {
+            if (maze[newY][newX] === 5 || maze[newY][newX] === 6) {
                 teleportPlayer();
+            }
+            if (maze[newY][newX] === 7) {
+                teleportWin();
             }
         }
 
         function teleportPlayer() {
-            // Borrar la posición actual del jugador
-            maze[playerY][playerX] = 2; // Marca la celda como vacía o accesible
+            maze[playerY][playerX] = 2;
 
-            // Teletransportar al jugador a la posición [1][1]
             playerX = 1;
             playerY = 1;
-            maze[playerY][playerX] = 3; // Marca la nueva posición con el jugador
+            maze[playerY][playerX] = 3;
 
-            // Redibujar el laberinto
             drawMaze();
         }
 
+        function teleportWin() {
+            maze[playerY][playerX] = 2;
 
+
+            playerX = 36;
+            playerY = 38;
+            maze[playerY][playerX] = 3;
+
+
+            drawMaze();
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            drawMaze();
+        }
 
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'w' || e.key === 'ArrowUp') {
-                movePlayer(0, -1);
-            } else if (e.key === 's' || e.key === 'ArrowDown') {
-                movePlayer(0, 1);
-            } else if (e.key === 'a' || e.key === 'ArrowLeft') {
-                movePlayer(-1, 0);
-            } else if (e.key === 'd' || e.key === 'ArrowRight') {
-                movePlayer(1, 0);
+            if (e.key === 'p') {
+                togglePause();
+            } else if (!isPaused && !isGameOver) {
+                if (e.key === 'w' ||e.key === 'W' || e.key === 'ArrowUp') {
+                    movePlayer(0, -1);
+                } else if (e.key === 's' ||e.key === 'S' || e.key === 'ArrowDown') {
+                    movePlayer(0, 1);
+                } else if (e.key === 'a' ||e.key === 'A' || e.key === 'ArrowLeft') {
+                    movePlayer(-1, 0);
+                } else if (e.key === 'd' ||e.key === 'D' || e.key === 'ArrowRight') {
+                    movePlayer(1, 0);
+                }
             }
         });
+
+
+
+
     </script>
-
-
 
 
     </script>
